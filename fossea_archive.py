@@ -92,6 +92,8 @@ def main():
                     elif downloadVideos == False:
                         if i['value']['stream_type'] != 'video':
                             claimIds.append(i["claim_id"])
+            except KeyboardInterrupt:
+                return
             except:
                 print("Error loading claims, skipping...")
                 continue                
