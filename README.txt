@@ -29,7 +29,7 @@ git clone https://github.com/belikor/lbrytools/
 lbrynet start
 
 4. Run the Python file
-#Download the python file from the Github, and open a terminal in the folder you download it to. Run it with
+#Download the python file from the Github at https://github.com/ratufacturing/fossea_archive/blob/main/fossea_archive.py, and open a terminal in the folder you download it to. Run it with
 python fossea_archive.py
 #Enter the download directory- where you want your files to go. For example:
 C:\Users\%Username%\Documents\LBRYDL
@@ -66,7 +66,7 @@ git clone https://github.com/belikor/lbrytools/
 #If you're having trouble with wallet things and are having connection issues, it's worth checking to see if it's a hashlib error- I was having issues but fixed it with this: https://stackoverflow.com/a/72509045
 
 4. Run the Python file
-#Download the python file from the Github, and open a terminal in the folder you download it to. Run it with:
+#Download the python file from the Github at https://github.com/ratufacturing/fossea_archive/blob/main/fossea_archive.py, and open a terminal in the folder you download it to. Run it with:
 python3 fossea_archive.py
 #Enter the download directory- where you want your files to go. For example:
 /home/%Username%/LBRYDL
