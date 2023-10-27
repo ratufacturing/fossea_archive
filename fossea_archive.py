@@ -73,7 +73,14 @@ def main():
         print(f"Now downloading channel: {str(i)} \n")
         #Find all claims of the channel
         claimIds = []
-        channelClaims = lbryt.list_ch_claims(i, claim_id=True, title=True)
+
+        #Get the channel's claims
+        try:
+            channelClaims = lbryt.list_ch_claims(i, claim_id=True, title=True)
+        except:
+            print("Error loading channel's claims, skipping...")
+            continue
+        
         for i in channelClaims['claims']:
 
             #If it's a report, ignore 
