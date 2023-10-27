@@ -78,20 +78,23 @@ def main():
         try:
             channelClaims = lbryt.list_ch_claims(i, claim_id=True, title=True)
         except:
-            print("Error loading channel's claims, skipping...")
+            print("Error loading channel claims, skipping...")
             continue
         
         for i in channelClaims['claims']:
-
-            #If it's a report, ignore 
-            if i['value_type'] != 'repost':
-
-                if downloadVideos == True:
-                    claimIds.append(i["claim_id"])
-                
-                elif downloadVideos == False:
-                    if i['value']['stream_type'] != 'video':
+            try:
+                #If it's a report, ignore 
+                if i['value_type'] != 'repost':
+    
+                    if downloadVideos == True:
                         claimIds.append(i["claim_id"])
+                    
+                    elif downloadVideos == False:
+                        if i['value']['stream_type'] != 'video':
+                            claimIds.append(i["claim_id"])
+            except:
+                print("Error loading claims, skipping...")
+                continue                
 
         #Iterate through each claim we've chosen to download, and pass them to the lbrynet daemon
         for i in claimIds:
