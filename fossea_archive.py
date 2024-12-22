@@ -4,9 +4,10 @@ import time
 import fitz
 import re
 import os
+import pyexcel as pe
 
 def main():
-    text = "0"
+    text = '0'
     
     #Download path selection and BLC list import
     while True:
@@ -18,14 +19,22 @@ def main():
 
             useBLC = input("Import the BLC Guncad list? ")
             if useBLC == "y" or useBLC == "Y" or useBLC == "yes" or useBLC == "Yes":
+                
                 #Download the current file and read in the text to the chosen directory
-                sourcePDF = lbryt.download_single(uri="@blacklotuscoalition:3/Odysee-list", ddir=ddir)
-                #Use textract to get the data from the pdf
-                readPDF = fitz.open(sourcePDF["download_path"])
-                for i in readPDF:
-                    text = text + i.get_text()
-                break
+                sourceODS = lbryt.download_single(uri="@blacklotuscoalition:3/The-New-Odysee-List-Spreadsheet", ddir=ddir)
+                
+                #Use pyexcel to get the data from the ods sheet
+                odsBook = pe.get_book(file_name=sourceODS["download_path"])
 
+                #Iterate through the sheets, rows, and cells in the ods doc
+                for sheet in odsBook:
+                    for row in sheet.to_array():
+                        for cell in row:
+                            #Check if there's a channel name in the cell we're looking at- if we added all the text, the string gets too big and causes a crash
+                            if re.match(r"(@[^\\:;/]+)", str(cell)):
+                                text += str(cell)
+                                text += ";" #Lazy way to delineate channels since it causes the regex later to stop matching
+                break
             else:
                 print("Did not import the BLC list.")
                 break
@@ -38,7 +47,6 @@ def main():
     #Supplementary file selection and loading
     while True:
         try:
-            
             useSupp = input("Use a second file? ")
             if useSupp == "y" or useSupp == "Y" or useSupp == "yes" or useSupp == "Yes":
                 suppFile = input("Enter the absolute path to the supplementary file: ")
@@ -60,17 +68,19 @@ def main():
         except:
             print("Error, please try again:")
             continue
-    
+
+    #Extract all matching channel names from the text string
     channels = re.findall(r"(@[^\\:;/]+)", text)
 
     #Clean  channel list
     for i in channels:
-        if "\\" in i or "https" in i:
+        if "\\" in i or "https" in i or "dropdown" in i:
             channels.remove(i)
 
     #Iterate through each channel
     for i in channels:
         print(f"Now downloading channel: {str(i)} \n")
+        
         #Find all claims of the channel
         claimIds = []
 
@@ -83,15 +93,15 @@ def main():
         
         for i in channelClaims['claims']:
             try:
-                #If it's a report, ignore 
+                #If it's a repost, ignore 
                 if i['value_type'] != 'repost':
     
                     if downloadVideos == True:
                         claimIds.append(i["claim_id"])
-                    
                     elif downloadVideos == False:
                         if i['value']['stream_type'] != 'video':
                             claimIds.append(i["claim_id"])
+                            
             except KeyboardInterrupt:
                 return
             except:
