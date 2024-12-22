@@ -51,18 +51,17 @@ mkdir ~/LBRY && cd $_
 
 wget https://github.com/lbryio/lbry-sdk/releases/download/v0.113.0/lbrynet-linux.zip
 
-wget https://raw.githubusercontent.com/ratufacturing/fossea_archive/refs/heads/main/fossea_archive.py
-
 unzip lbrynet-linux.zip
 
 ~/LBRY/lbrynet start > /dev/null 2>&1 &
 ```
 
 4. Run the Python file
-	* Download the Python file from the Github at https://github.com/ratufacturing/fossea_archive/blob/main/fossea_archive.py, and open a terminal in the folder you download it to. Run it with:
+	* Download the archival file from the Github using wget:
+<br/>`wget https://raw.githubusercontent.com/ratufacturing/fossea_archive/refs/heads/main/fossea_archive.py`
+	* Make sure that your terminal is in the folder it's downloaded to before running it:
 <br/>`python3 fossea_archive.py`
-
-	* Enter the download directory- where you want your files to go. For example: (replace "%Username" with your linux username)
+	* To use: enter the download directory- where you want your files to go. For example: (replace "%Username" with your linux username)
 <br/>`/home/%Username%/LBRYDL`
 
 	* Choose whether you want to import the BLC Guncad list, answers other than yes/y will default to no
