@@ -1,7 +1,6 @@
 import lbrytools as lbryt
 import hashlib
 import time
-import fitz
 import re
 import os
 import pyexcel as pe
