@@ -1,4 +1,4 @@
-## ----------------------------------------------Instructions for usage----------------------------------------------
+## <center>Instructions for usage</center>
 
 
 # Windows 10
