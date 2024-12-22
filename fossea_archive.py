@@ -30,7 +30,7 @@ def main():
                     for row in sheet.to_array():
                         for cell in row:
                             #Check if there's a channel name in the cell we're looking at- if we added all the text, the string gets too big and causes a crash
-                            if re.match(r"(@[^\\:;/]+)", str(cell)):
+                            if re.match(r"(@[^\\;/]+)", str(cell)):
                                 text += str(cell)
                                 text += ";" #Lazy way to delineate channels since it causes the regex later to stop matching
                 break
@@ -69,11 +69,11 @@ def main():
             continue
 
     #Extract all matching channel names from the text string
-    channels = re.findall(r"(@[^\\:;/]+)", text)
+    channels = re.findall(r"(@[^\\;/]+)", text)
 
     #Clean  channel list
     for i in channels:
-        if "\\" in i or "https" in i or "dropdown" in i:
+        if "\\" in i or "https" in i or "dropdown" in i or "@Anon":
             channels.remove(i)
 
     #Iterate through each channel
