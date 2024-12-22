@@ -14,7 +14,7 @@
 
 2. Install dependancies
 	* This should install all the required Python packages you need
-<br/>`python -m pip install pip3 install git+https://github.com/ratufacturing/lbrytools/`
+<br/>`python -m pip install git+https://github.com/ratufacturing/lbrytools/`
 
 3. Download and start lbrynet
 	* Download and extract the latest lbrynet release from here: https://github.com/lbryio/lbry-sdk/releases
