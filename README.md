@@ -24,9 +24,7 @@
 
 * Be aware that lbrynet will default to writing blob files to a %Appdata% directory. Blob files are the pieces of files that are passed around by the LBRY protocol, and are used for downloading, seeding, and reconstructing files
 * This will cause your C: drive to fill up more quickly (since it needs to write the data twice). Blobfile write location is controlled by the lbrynet daemon, which we can configure by creating and using a config file:
-
 <br/>`echo "data_dir: 'c:\Users\%Username%\LBRY\lbryblobs'" > "daemon_settings.yml"`
-
 * This will configure lbrynet to search for and store blobfiles and other blockchain data at the location C:\Users\%Username%\LBRY\lbryblobs (you need to replace %Username%). Note that if you later restart it, you must point it at the same location (use the same config file/directory) or it will need to redownload everything.
 * If you really don't want to keep the blobfiles around, use the save_blobs setting which permits deletion of blobfiles after download completion. Note that this is **not recommended**, as it will require redownloading blobfiles again if the script is rerun (very slow), and means you won't be able to seed, which is a bit of a dick move. Edit your .yml file and add a second line:
 <br/>`save_blobs: false`
