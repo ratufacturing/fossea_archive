@@ -69,3 +69,20 @@ unzip lbrynet-linux.zip
 	* Make sure you give it the absolute path, something like:
 <br/>`/home/%Username%/LBRYDL/extra_channels.txt`
 	* If you're having trouble with connection issues, it's worth checking to see if it's a hashlib error- I was having issues but fixed it with this: https://stackoverflow.com/a/72509045
+
+# Suggestions and more
+
+* You should never run someone else's script without making sure that it's safe to do so, and isn't reporting to someone else. 
+ 
+ 	* I would reccomend taking a quick glance through it, it's pretty simple and I've tried to comment it well.
+   
+   * The lbrytools fork I created can also be found under my profile in another repo. I've personally gone through the originaly repo and it seems to be fine, you can check my commits to see what I've changed (only added a setup.py file and made a new folder to make it pip-able).
+    
+* I would highly reccomend using a VPN whenever doing any downloading (keeps your ISP from getting mad at you, keeps other entities off your ass. 
+ 
+ 	* I would reccomend ProtonVPN or AirVPN as VPNs that allow port forwarding. Please set up port forwarding and seed if you can, the LBRY network only stays alive with your help!
+   
+   	* Mullvad is also easy to use and one I trust.
+     
+* Setup a seedbox if you can. I'm going to try to make a Docker container if I get around to it (but it shouldn't be too hard if someone wants to beat me to it).
+* I'm also going to try to make it runnable using CLI arguements at some point, which would allow setting it up as a service on Windows or Linux that runs in the background.
