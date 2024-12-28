@@ -105,7 +105,7 @@ unzip lbrynet-linux.zip
  	* I would reccomend ProtonVPN or AirVPN as VPNs that allow port forwarding. Please set up port forwarding and seed if you can, the LBRY network only stays alive with your help! Mullvad is also easy to use and one I trust.
      
 * Setup a seedbox if you can. I'm going to try to make a Docker container if I get around to it (but it shouldn't be too hard if someone wants to beat me to it).
-* I'm also going to try to make it runnable using CLI arguements at some point, which would allow setting it up as a service on Windows or Linux that runs in the background.
+* I'm also going to try to make it runnable using CLI arguments at some point, which would allow setting it up as a service on Windows or Linux that runs in the background.
 
 # (Optional) Command Line Arguments
 
