@@ -7,12 +7,12 @@ import pyexcel as pe
 import argparse
 
 def main():
-    #CLI Arguements:
+    #CLI Arguments:
     parser = argparse.ArgumentParser()
-    parser.add_argument("-blc", "--use_blc_script", help="Option to automatically import and use the BLC Odysee spreadsheet into the list of channels to download", type=str_to_bool, nargs='?', const=True, default=None)
+    parser.add_argument("-blc", "--use_blc_script", help="Option to automatically import and use the BLC Odysee spreadsheet into the list of channels to download. Defaults to True if passed.", type=str_to_bool, nargs='?', const=True, default=None)
     parser.add_argument("-ddir", "--download_directory", help="Set the download directory for completed files", type=str)
-    parser.add_argument("-supp", "--secondary_file", help="Option to automatically import and use the a secondary txt or similar file into the list of channels to download", type=str)
-    parser.add_argument("-novid", "--skip_video_files", help="Avoid downloading unzipped video files to save space", type=str_to_bool, nargs='?', const=True, default=None)
+    parser.add_argument("-supp", "--secondary_file", help="Option to automatically import and use the a secondary txt or similar file into the list of channels to download. Pass 'none' to avoid use.", type=str)
+    parser.add_argument("-novid", "--skip_video_files", help="Avoid downloading unzipped video files to save space. Defaults to True if passed.", type=str_to_bool, nargs='?', const=True, default=None)
     args = parser.parse_args()
     text = '0'
 
