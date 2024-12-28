@@ -4,20 +4,38 @@ import time
 import re
 import os
 import pyexcel as pe
+import argparse
 
 def main():
+    #CLI Arguements:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-blc", "--use_blc_script", help="Option to automatically import and use the BLC Odysee spreadsheet into the list of channels to download", type=str_to_bool, nargs='?', const=True, default=None)
+    parser.add_argument("-ddir", "--download_directory", help="Set the download directory for completed files", type=str)
+    parser.add_argument("-supp", "--secondary_file", help="Option to automatically import and use the a secondary txt or similar file into the list of channels to download", type=str)
+    parser.add_argument("-novid", "--skip_video_files", help="Avoid downloading unzipped video files to save space", type=str_to_bool, nargs='?', const=True, default=None)
+    args = parser.parse_args()
     text = '0'
-    
+
     #Download path selection and BLC list import
     while True:
         try:
-            ddir = input("Enter the absolute path to the download directory: ") 
-            #Check for valid input
-            if ddir == "" or not os.path.isdir(ddir):
-                continue
+            if args.download_directory:
+                ddir = args.download_directory
+            else:
+                ddir = input("Enter the absolute path to the download directory: ") 
+                #Check for valid input
+                if ddir == "" or not os.path.isdir(ddir):
+                    continue
+            
+            if args.use_blc_script is not None:
+                if args.use_blc_script is True:
+                    useBLC = "y" #This is a little hacky but works fine
+                else:
+                    useBLC = "false"
+            else:
+                useBLC = input("Import the BLC Guncad list? ")
 
-            useBLC = input("Import the BLC Guncad list? ")
-            if useBLC == "y" or useBLC == "Y" or useBLC == "yes" or useBLC == "Yes":
+            if useBLC.lower() in ['y', 'yes', 'true']:
                 
                 #Download the current file and read in the text to the chosen directory
                 sourceODS = lbryt.download_single(uri="@blacklotuscoalition:3/The-New-Odysee-List-Spreadsheet", ddir=ddir)
@@ -46,21 +64,40 @@ def main():
     #Supplementary file selection and loading
     while True:
         try:
-            useSupp = input("Use a second file? ")
-            if useSupp == "y" or useSupp == "Y" or useSupp == "yes" or useSupp == "Yes":
-                suppFile = input("Enter the absolute path to the supplementary file: ")
-                text = text + open(suppFile,'r').read()
-            elif text == "0":
+            if args.secondary_file:
+                if args.secondary_file.lower() not in ['f', 'false', 'no', 'none', 'n']:
+                    suppFile = args.secondary_file
+                    text = text + open(suppFile,'r').read()
+                    print('File imported:' + suppFile)
+                else:
+                    print("No secondary file chosen.")
+            else:
+                useSupp = input("Use a second file? ")
+                if useSupp.lower() in ['y', 'yes', 'true']:
+                    suppFile = input("Enter the absolute path to the supplementary file: ")
+                    text = text + open(suppFile,'r').read()
+                    print('File imported:' + suppFile)
+                else:
+                    print("No secondary file chosen.")
+            
+            if text == "0":
                 print("No inputs given, closing...")
                 return
-            else:
-                print("No secondary file chosen.")
 
-            skipVideo = input("Skip downloading video files? ")
-            if skipVideo == "y" or skipVideo == "Y" or useSupp == "yes" or useSupp == "Yes":
+            if args.skip_video_files is not None:
+                if args.skip_video_files is True:
+                    skipVideo = "y"
+                else:
+                    skipVideo = "n"
+            else:
+                skipVideo = input("Skip downloading video files? ")
+            
+            if skipVideo.lower() in ['y', 'yes', 'true']:
                 downloadVideos = False
+                print("Skipping downloading video files.")
             else:
                 downloadVideos = True
+                print("Downloading video files.")
             break
         except KeyboardInterrupt:
             return
@@ -84,6 +121,7 @@ def main():
                     channels.remove(j)
     channels = sorted(set(channels))
 
+    ###Download claims (actual work happens below \/)
     #Iterate through each channel
     for i in channels:
         print(f"Now downloading channel: {str(i)} \n")
@@ -123,6 +161,16 @@ def main():
                 return
             except:
                 pass
+
+#This bit was added to help with CLI arguement parsing
+def str_to_bool(value):
+    #Convert string to boolean.
+    if value.lower() in ('true', '1', 'y', 'yes'):
+        return True
+    elif value.lower() in ('false', '0', 'n', 'no'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError(f"Invalid boolean value: {value}. Use 'true' or 'false'.")
 
 if __name__ == "__main__":
     main()
