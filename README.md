@@ -92,7 +92,7 @@ unzip lbrynet-linux.zip
 <br/>`/home/%Username%/LBRYDL/extra_channels.txt`
 * If you're having trouble with connection issues, it's worth checking to see if it's a hashlib error- I was having issues but fixed it with this: https://stackoverflow.com/a/72509045
 
-# Suggestions and more
+# Suggestions and More
 
 * You should never run someone else's script without making sure that it's safe to do so, and isn't reporting to someone else. 
  
@@ -107,8 +107,10 @@ unzip lbrynet-linux.zip
 * Setup a seedbox if you can. I'm going to try to make a Docker container if I get around to it (but it shouldn't be too hard if someone wants to beat me to it).
 * I'm also going to try to make it runnable using CLI arguements at some point, which would allow setting it up as a service on Windows or Linux that runs in the background.
 
-# Arguements
+# (Optional) Command Line Arguments
 
+* Not required for normal use, but helpful if you want to set up a scheduled task or something.
+* If every argument isn't passed in some form, the script will prompt you to enter that information. If you're trying to run it automatically, make sure to give it every option or it will hang waiting for user input.
 * --use_blc_script (-blc): Option to automatically import and use the BLC Odysee spreadsheet into the list of channels to download. Defaults to True if passed.
 * --download_directory (-ddir): Set the download directory for completed files. Must be explicit, ex: /home/%Username%/LBRY/ on Linux.
 * --secondary_file (-supp): Option to automatically import and use the a secondary txt or similar file into the list of channels to download. Pass 'none' to avoid use.
